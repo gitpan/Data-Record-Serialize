@@ -1,0 +1,29 @@
+0.05	2014-05-02T15:51:19-0400
+
+  [OTHER]
+
+    * minor documentation fixes
+
+0.04	2014-04-07T00:15:05-0400
+
+  [ENHANCEMENT]
+
+    * new dbitrace parameter for DBI encoder
+
+
+0.03	2014-03-25T21:02:15-0400
+
+  [BUG FIX]
+
+    * DBI drop_table option was broken
+
+0.02	2014-03-22T16:46:43-0400
+
+  [ENHANCEMENT]
+
+    * DBI writes are now written as batche in a transaction to improve
+      performance
+
+0.01	2014-03-18T15:19:58-0400
+
+    * initial release
