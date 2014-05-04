@@ -5,7 +5,7 @@
       "Diab Jerius <djerius@cpan.org>"
    ],
    "dynamic_config" : "0",
-   "generated_by" : "Module::Install version 1.08, CPAN::Meta::Converter version 2.133380",
+   "generated_by" : "Module::Install version 1.08, CPAN::Meta::Converter version 2.141170",
    "license" : [
       "unknown"
    ],
@@ -51,7 +51,7 @@
             "List::Util" : "1.38",
             "Moo" : "0",
             "Package::Variant" : "0",
-            "Types::Standard" : "0",
+            "Types::Standard" : "0.042",
             "perl" : "v5.10.1"
          }
       },
@@ -64,7 +64,7 @@
          }
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Data-Record-Serialize"
@@ -76,5 +76,5 @@
          "url" : "https://bitbucket.org/djerius/data-record-serialize"
       }
    },
-   "version" : "0.05"
+   "version" : "0.05_01"
 }
