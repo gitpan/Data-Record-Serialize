@@ -1,7 +1,6 @@
 #line 1
 package Module::CPANfile::Environment;
 use strict;
-use warnings;
 use Module::CPANfile::Result;
 use Carp ();
 
@@ -14,41 +13,36 @@ my @bindings = qw(
 
 my $file_id = 1;
 
-sub new {
-    my($class, $file) = @_;
-    bless {
-        file => $file,
-    }, $class;
-}
-
-sub bind {
-    my $class = shift;
+sub import {
+    my($class, $result_ref) = @_;
     my $pkg = caller;
 
-    my $result = Module::CPANfile::Result->new;
+    $$result_ref = Module::CPANfile::Result->new;
     for my $binding (@bindings) {
         no strict 'refs';
-        *{"$pkg\::$binding"} = sub { $result->$binding(@_) };
+        *{"$pkg\::$binding"} = sub { $$result_ref->$binding(@_) };
     }
-
-    return $result;
 }
 
 sub parse {
-    my($self, $code) = @_;
+    my $file = shift;
+
+    my $code = do {
+        open my $fh, "<", $file or die "$file: $!";
+        join '', <$fh>;
+    };
 
     my($res, $err);
 
     {
         local $@;
-        $file_id++;
-        $res = eval <<EVAL;
-package Module::CPANfile::Sandbox$file_id;
+        $res = eval sprintf <<EVAL, $file_id++;
+package Module::CPANfile::Sandbox%d;
 no warnings;
 my \$_result;
-BEGIN { \$_result = Module::CPANfile::Environment->bind }
+BEGIN { import Module::CPANfile::Environment \\\$_result };
 
-# line 1 "$self->{file}"
+# line 1 "$file"
 $code;
 
 \$_result;
@@ -56,7 +50,7 @@ EVAL
         $err = $@;
     }
 
-    if ($err) { die "Parsing $self->{file} failed: $err" };
+    if ($err) { die "Parsing $file failed: $err" };
 
     return $res;
 }

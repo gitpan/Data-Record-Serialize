@@ -4,10 +4,10 @@ use strict;
 use warnings;
 use Cwd;
 use Carp ();
-use Module::CPANfile::Environment;
+use Module::CPANfile::Environment ();
 use Module::CPANfile::Result;
 
-our $VERSION = '1.0002';
+our $VERSION = '0.9034';
 
 sub new {
     my($class, $file) = @_;
@@ -16,9 +16,9 @@ sub new {
 
 sub load {
     my($proto, $file) = @_;
-
     my $self = ref $proto ? $proto : $proto->new;
-    $self->parse($file || Cwd::abs_path('cpanfile'));
+    $self->{file} = $file || "cpanfile";
+    $self->parse;
     $self;
 }
 
@@ -30,15 +30,10 @@ sub save {
 }
 
 sub parse {
-    my($self, $file) = @_;
+    my $self = shift;
 
-    my $code = do {
-        open my $fh, "<", $file or die "$file: $!";
-        join '', <$fh>;
-    };
-
-    my $env = Module::CPANfile::Environment->new($file);
-    $self->{result} = $env->parse($code) or die $@;
+    my $file = Cwd::abs_path($self->{file});
+    $self->{result} = Module::CPANfile::Environment::parse($file) or die $@;
 }
 
 sub from_prereqs {
@@ -68,18 +63,7 @@ sub feature {
     });
 }
 
-sub prereq { shift->prereqs }
-
-sub prereqs {
-    my $self = shift;
-    require CPAN::Meta::Prereqs;
-    CPAN::Meta::Prereqs->new($self->prereq_specs);
-}
-
-sub effective_prereqs {
-    my($self, $features) = @_;
-    $self->prereqs_with(@{$features || []});
-}
+sub prereqs { shift->prereq }
 
 sub prereqs_with {
     my($self, @feature_identifiers) = @_;
@@ -88,6 +72,12 @@ sub prereqs_with {
     my @others = map { $self->feature($_)->prereqs } @feature_identifiers;
 
     $prereqs->with_merged_prereqs(\@others);
+}
+
+sub prereq {
+    my $self = shift;
+    require CPAN::Meta::Prereqs;
+    CPAN::Meta::Prereqs->new($self->prereq_specs);
 }
 
 sub prereq_specs {
@@ -171,4 +161,4 @@ sub _dump_prereqs {
 
 __END__
 
-#line 293
+#line 283
