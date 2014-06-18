@@ -40,4 +40,4 @@ resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Data-Record-Serialize
   license: http://www.gnu.org/licenses/gpl-3.0.html
   repository: https://bitbucket.org/djerius/data-record-serialize
-version: 0.05_02
+version: 0.05_03
