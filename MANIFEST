@@ -3,7 +3,9 @@ cpanfile
 inc/Module/AutoInstall.pm
 inc/Module/CPANfile.pm
 inc/Module/CPANfile/Environment.pm
-inc/Module/CPANfile/Result.pm
+inc/Module/CPANfile/Prereq.pm
+inc/Module/CPANfile/Prereqs.pm
+inc/Module/CPANfile/Requirement.pm
 inc/Module/Install.pm
 inc/Module/Install/AutoInstall.pm
 inc/Module/Install/Base.pm
