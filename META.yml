@@ -13,7 +13,7 @@ configure_requires:
   CPAN::Meta: '0'
   ExtUtils::MakeMaker: '6.59'
 dynamic_config: '0'
-generated_by: 'Module::Install version 1.12, CPAN::Meta::Converter version 2.142060'
+generated_by: 'Module::Install version 1.14, CPAN::Meta::Converter version 2.143240'
 license: unknown
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -37,7 +37,7 @@ requires:
   Types::Standard: '0.042'
   perl: v5.10.1
 resources:
-  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Data-Record-Serialize
+  bugtracker: https://rt.cpan.org/Dist/Display.html?Name=Data-Record-Serialize
   license: http://www.gnu.org/licenses/gpl-3.0.html
   repository: https://bitbucket.org/djerius/data-record-serialize
-version: '0.06'
+version: 0.06_01
